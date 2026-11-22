@@ -1,0 +1,44 @@
+SimpleChess build and run
+Date (UTC): 2026-11-22 04:02:25 UTC
+Working directory: repository root (/workspace on the verification machine)
+Lines that start with "+ " are the commands that were run. Other lines are their output.
+
++ java -version
+openjdk version "21.0.13.0.3" 2026-10-24
+OpenJDK Runtime Environment (build 21.0.13.0.3+1-1-24.04.1-Ubuntu)
+OpenJDK 64-Bit Server VM (build 21.0.13.0.3+1-1-24.04.1-Ubuntu, mixed mode, sharing)
+
++ javac -version
+javac 21.0.13.0.3
+
++ mkdir -p out
++ javac -d out $(find src -name '*.java' | sort)
+javac_exit:0
+
++ find out -type f | sort
+out/Enum/Colour.class
+out/Main.class
+out/Model/Board.class
+out/Model/Game.class
+out/Model/Piece.class
+out/Model/Pieces/Bishop.class
+out/Model/Pieces/King.class
+out/Model/Pieces/Knight.class
+out/Model/Pieces/Pawn.class
+out/Model/Pieces/Quinn.class
+out/Model/Pieces/Tower.class
+
++ java -cp out Main > /tmp/simplechess-stdout.bin
+java_exit:0
+
++ wc -c /tmp/simplechess-stdout.bin
+18 /tmp/simplechess-stdout.bin
+
++ od -An -tx1c /tmp/simplechess-stdout.bin
+  48  65  6c  6c  6f  20  61  6e  64  20  77  65  6c  63  6f  6d
+   H   e   l   l   o       a   n   d       w   e   l   c   o   m
+  65  21
+   e   !
+
++ printf '%s' 'Hello and welcome!' | cmp - /tmp/simplechess-stdout.bin
+cmp_exit:0
